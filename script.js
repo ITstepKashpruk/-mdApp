@@ -5,11 +5,11 @@ const personalMovieDB = {
   count: 0,
   movies: {},
   actors: {},
-  genres: {},
+  genres: [],
   privat: false,
   start: function(){ 
     personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "");
-    while ( personalMovieDB.count == '' ||  personalMovieDB.count == null || isNaN(num personalMovieDB.countberOfFilms)){
+    while ( personalMovieDB.count == '' ||  personalMovieDB.count == null || isNaN(personalMovieDB.count)){
       personalMovieDB.count  = +prompt(("Сколько фильмов вы уже посмотрели?", ""));
     }
   },
@@ -52,16 +52,27 @@ const personalMovieDB = {
     }
   },
   writeYourGenres: function(){
-    for (let i = 1; i <= 3; i++) {
-      personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+    for (let i = 1; i < 2; i++) {
+
+    let genres = prompt(`Введите ваши любимые жанры через зяпятую.!`).toLowerCase();
+          
+      if(genres === '' || genres == null){
+        console.log("Вы ввели не коректные данные, или не ввели их вообще");
+        i--;
+      } else {
+        personalMovieDB.genres = genres.split(', ');
+        personalMovieDB.genres.sort();   
+      }
     }
-  }
-  
-}
+    personalMovieDB.genres.forEach((item, i) => {
+      console.log(`Любимый жанр #${i + 1} - это ${item}`);
+    });
+  } 
+};
 
 
 /* Задание на урок:
-
+ 
 1) У нас уже есть рабочее приложение, состоящее из отдельных функций. Представьте, что
 перед вами стоит задача переписать его так, чтобы все функции стали методами объекта personalMovieDB
 Такое случается в реальных продуктах при смене технологий или подхода к архитектуре программы
